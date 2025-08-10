@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Сюрприз для Ангелины</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fff0f5;
+    margin: 0;
+    padding: 0;
+    color: #4b2a2a;
+  }
+  .login-container, .main-content {
+    padding: 20px;
+    max-width: 450px;
+    margin: 100px auto 0;
+    background: #fff4f8;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(155, 45, 107, 0.15);
+  }
+  .confirmation, .access-denied {
+    display: none;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .access-denied {
+    color: #d9415f;
+  }
+  input[type="text"] {
+    width: 70%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #d6a6b7;
+  }
+  button {
+    margin-top: 15px;
+    padding: 12px 24px;
+    background-color: #e76ea8;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #d43e74;
+  }
+  .bouquet {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 450px;
+    max-width: 90vw;
+    transform: translate(-50%, -50%) scale(0.1);
+    transition: transform 1s ease-out, opacity 1s ease-out;
+    z-index: 10000;
+    box-shadow: 0 15px 30px rgba(155, 45, 107, 0.35);
+    border-radius: 12px;
+  }
+  .bouquet.show {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-container" id="login">
+  <h1>Введи своё имя</h1>
+  <input type="text" id="nameInput" placeholder="Имя" autocomplete="off" />
+  <br />
+  <button onclick="checkName()">Войти</button>
+  <div class="confirmation" id="confirmationBlock">
+    Это точно Ангелина?
+    <br />
+    <button onclick="confirmName(true)">Да</button>
+    <button onclick="confirmName(false)">Нет</button>
+  </div>
+  <div class="access-denied" id="accessDenied">Доступ запрещён</div>
+</div>
+
+<div class="main-content" id="mainContent" style="display:none;">
+  <h1>Привет, Ангелина!</h1>
+  <button onclick="showBouquet()">Нажми ка сюда</button>
+</div>
+
+<img src="https://www.pngall.com/wp-content/uploads/5/Peony-Flower-Bouquet-PNG-Image.png" alt="Большой букет пионов" class="bouquet" id="bouquet">
+
+<script>
+  function checkName() {
+    const name = document.getElementById('nameInput').value.trim().toLowerCase();
+    if (name === 'ангелина') {
+      document.getElementById('confirmationBlock').style.display = 'block';
+      document.getElementById('accessDenied').style.display = 'none';
+    } else {
+      document.getElementById('accessDenied').style.display = 'block';
+      document.getElementById('confirmationBlock').style.display = 'none';
+    }
+  }
+
+  function confirmName(isConfirmed) {
+    if (isConfirmed) {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    } else {
+      document.getElementById('accessDenied').style.display = 'block';
+      document.getElementById('confirmationBlock').style.display = 'none';
+    }
+  }
+
+  function showBouquet() {
+    const bouquet = document.getElementById('bouquet');
+    bouquet.classList.add('show');
+    setTimeout(() => {
+      bouquet.classList.remove('show');
+    }, 6000);
+  }
+
+  // Enter key triggers checkName for convenience
+  document.getElementById('nameInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      checkName();
+    }
+  });
+</script>
+
+</body>
+  </html>
